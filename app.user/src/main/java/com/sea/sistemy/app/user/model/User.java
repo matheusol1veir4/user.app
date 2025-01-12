@@ -7,6 +7,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "tb_user")
@@ -16,10 +20,21 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
+	@NotBlank(message = "Nome é obrigatório")
+	@Size (min = 3, max = 100, message = "Nome deve ter entre 3 e 100 caracteres")
 	private String name;
+	
+	@NotBlank(message = "CPF é obrigatório")
+	@Pattern(regexp = "\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}", message = "CPF deve estar no formato XXX.XXX.XXX-XX")
 	private String CPF;
+	
+	@NotBlank(message = "Endereço é obrigatório")
 	private String endereco;
+	
+	@NotBlank(message = "Telefone é obrigatório")
 	private String telefone;
+	
+	@Email(message = "E-mail deve ser válido")
 	private String email;
 	
 	@ManyToOne
